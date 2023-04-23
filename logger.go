@@ -1,7 +1,6 @@
 package datalogger
 
 import (
-	"datalogger/src/file"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -39,7 +38,7 @@ type configLogger struct {
 	ptrLoggerWarn  *log.Logger
 	ptrLoggerError *log.Logger
 
-	LogFile *file.RotatingFileLog
+	LogFile *RotatingFileLog
 }
 
 var Logger configLogger
@@ -51,7 +50,7 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 	warnHandle := ioutil.Discard
 	errorHandle := ioutil.Discard
 
-	var fileHandle *file.RotatingFileLog
+	var fileHandle *RotatingFileLog
 
 	switch logLevel {
 	case TRACE:
@@ -72,7 +71,7 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 
 	if fileName != "" {
 		var err error
-		fileHandle, err = file.NewRotatingFileLog(fileName, maxBytes, backupCount)
+		fileHandle, err = NewRotatingFileLog(fileName, maxBytes, backupCount)
 		if err != nil {
 			log.Fatal("logger: unable to create RotatingFileHandler: ", err)
 		}
@@ -111,7 +110,7 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 
 // Start starts the logging
 func Start(level LogLevel, path string) {
-	doLogging(level, path, file.MaxSizeFile, file.BckCount)
+	doLogging(level, path, MaxSizeFile, BckCount)
 }
 
 func StartEx(level LogLevel, path string, maxBytes, backupCount int) {
