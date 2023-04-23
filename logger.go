@@ -1,7 +1,7 @@
 package datalogger
 
 import (
-	"datalloger/src/file"
+	"datalogger/src/file"
 	"fmt"
 	"io"
 	"io/ioutil"
