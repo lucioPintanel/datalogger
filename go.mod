@@ -1,3 +1,3 @@
-module datalloger
+module datalogger
 
 go 1.18
